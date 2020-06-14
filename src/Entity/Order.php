@@ -5,20 +5,29 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\OrderRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Ramsey\Uuid\Doctrine\UuidGenerator;
+use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 
 /**
  * @ApiResource(
- *     itemOperations={"GET",
+ *     itemOperations={"GET" = {
+                "access_control" = "is_granted('IS_AUTHENTICATED_FULLY') and
+ *                  object.getCustomer() == user"
+ *          },
  *          "PUT" = {
-                "access_control" = "is_grated('IS_AUTHENTICATED_FULLY') and object.getCustomer() == user"
+                "access_control" = "is_granted('IS_AUTHENTICATED_FULLY') and
+ *                  object.getCustomer() == user"
  *          },
  *          "DELETE" = {
-"               access_control" = "is_grated('IS_AUTHENTICATE_FULLY') and object.getCustomer() == user"
+"               access_control" = "is_granted('IS_AUTHENTICATE_FULLY') and object.getCustomer() == user"
  *          }},
  *
- *     collectionOperations={"GET",
+ *     collectionOperations={"GET" = {
+            "access_control" = "is_granted('IS_AUTHENTICATED_FULLY') and
+ *                  object.getCustomer() == user"
+ *          },
  *          "POST" = {
  *              "access_control" = "is_granted('IS_AUTHENTICATED_FULLY')"
  *          }
@@ -30,23 +39,20 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Order
 {
     /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
+     * @var UuidInterface
+     *
+     * @ORM\Id
+     * @ORM\Column(type="uuid", unique=true)
+     * @ORM\GeneratedValue(strategy="CUSTOM")
+     * @ORM\CustomIdGenerator(class=UuidGenerator::class)
      */
-    private $id;
+    private $orderCode;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Customer", inversedBy="orders")
      * @ORM\JoinColumn(nullable=false)
      */
     private $customer;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank()
-     */
-    private $orderCode;
 
     /**
      * @ORM\Column(type="integer")
@@ -67,26 +73,14 @@ class Order
     private $address;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="date")
      * @Assert\NotBlank()
      */
     private $shippingDate;
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
-
-    public function getOrderCode(): ?string
+    public function getOrderCode()
     {
         return $this->orderCode;
-    }
-
-    public function setOrderCode(string $orderCode): self
-    {
-        $this->orderCode = $orderCode;
-
-        return $this;
     }
 
     public function getProductId(): ?int
