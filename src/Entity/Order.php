@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Ramsey\Uuid\Doctrine\UuidGenerator;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Validator\Constraints as Assert;
+use App\Controller\OrderListController;
 
 
 /**
@@ -24,10 +25,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 "               access_control" = "is_granted('IS_AUTHENTICATE_FULLY') and object.getCustomer() == user"
  *          }},
  *
- *     collectionOperations={"GET" = {
-            "access_control" = "is_granted('IS_AUTHENTICATED_FULLY') and
- *                  object.getCustomer() == user"
- *          },
+ *     collectionOperations={ "GET",
  *          "POST" = {
  *              "access_control" = "is_granted('IS_AUTHENTICATED_FULLY')"
  *          }
