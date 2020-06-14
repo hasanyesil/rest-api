@@ -8,11 +8,21 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Symfony\Component\Security\Core\User\UserInterface;
+use ApiPlatform\Core\Annotation\ApiSubresource;
+use Symfony\Component\Serializer\Annotation\Groups;
+
 
 /**
  * @ORM\Entity(repositoryClass=CustomerRepository::class)
- * @ApiResource(itemOperations={},
- *     collectionOperations={})
+ * @ApiResource(
+ *     itemOperations={"GET" = {
+            "access_control" = "is_granted('IS_AUTHENTICATED_FULLY')"
+ *     }},
+ *     collectionOperations={},
+ *     normalizationContext={
+            "groups" = {"read"}
+ *     }
+ * )
  */
 class Customer implements UserInterface
 {
@@ -36,6 +46,8 @@ class Customer implements UserInterface
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Order", mappedBy="customer")
+     * @Groups({"read"})
+     * @ApiSubresource()
      */
     private $orders;
 
