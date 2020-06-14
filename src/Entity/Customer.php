@@ -8,14 +8,11 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Symfony\Component\Security\Core\User\UserInterface;
-use ApiPlatform\Core\Annotation\ApiSubresource;
 
 /**
  * @ORM\Entity(repositoryClass=CustomerRepository::class)
- * @ApiResource(
- *     itemOperations={"GET","PUT"},
- *     collectionOperations={}
- * )
+ * @ApiResource(itemOperations={},
+ *     collectionOperations={})
  */
 class Customer implements UserInterface
 {
@@ -38,7 +35,6 @@ class Customer implements UserInterface
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Order", mappedBy="customer")
-     * @ApiSubresource()
      */
     private $orders;
 
