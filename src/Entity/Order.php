@@ -8,15 +8,11 @@ use Doctrine\ORM\Mapping as ORM;
 use Ramsey\Uuid\Doctrine\UuidGenerator;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Validator\Constraints as Assert;
-use App\Controller\OrderListController;
 
 
 /**
  * @ApiResource(
- *     itemOperations={"GET" = {
-                "access_control" = "is_granted('IS_AUTHENTICATED_FULLY') and
- *                  object.getCustomer() == user"
- *          },
+ *     itemOperations={"GET",
  *          "PUT" = {
                 "access_control" = "is_granted('IS_AUTHENTICATED_FULLY') and
  *                  object.getCustomer() == user"
