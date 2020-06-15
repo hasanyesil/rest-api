@@ -20,5 +20,6 @@ DATABASE_URL=mysql://kullanıcı_adı:parola@127.0.0.1:myql_port/database_ismi?s
 ## TASK LIST
 -[x] Servisler
 -[x] Postman Collection
+-[x] Readme
 -[ ] Unit Tests
 -[ ] Docker image
