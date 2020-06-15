@@ -18,8 +18,8 @@ DATABASE_URL=mysql://kullanıcı_adı:parola@127.0.0.1:myql_port/database_ismi?s
 - \/api\/customers\/\{id\}\/orders\/orders.\{_format\}
 
 ## TASK LIST
--[x] Servisler
--[x] Postman Collection
--[x] Readme
--[ ] Unit Tests
--[ ] Docker image
+- [x] Servisler
+- [x] Postman Collection
+- [x] Readme
+- [ ] Unit Tests
+- [ ] Docker image
