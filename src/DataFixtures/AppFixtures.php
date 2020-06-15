@@ -7,6 +7,7 @@ use App\Entity\Order;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 class AppFixtures extends Fixture
 {
@@ -27,12 +28,12 @@ class AppFixtures extends Fixture
     }
 
     public function loadOrders(ObjectManager $manager){
-        for ($i = 0; $i<20; $i++){
+        for ($i = 0; $i<50; $i++){
             $order = new Order();
             $order->setProductId($i);
             $order->setQuantity(rand(1,9999));
-            $order->setAddress("testaddress");
-            $order->setShippingDate(new \DateTime());
+            $order->setAddress("testaddress$i");
+            $order->setShippingDate(new \DateTime('2020-'.rand(1,12).'-'.rand(1,28)));
             $order->setCustomer($this->getReference('customer_'.rand(1,3)));
 
             $manager->persist($order);
