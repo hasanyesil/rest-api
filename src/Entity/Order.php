@@ -14,11 +14,10 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ApiResource(
  *     itemOperations={"GET",
  *          "PUT" = {
-                "access_control" = "is_granted('IS_AUTHENTICATED_FULLY') and
- *                  object.getCustomer() == user"
+                "access_control" = "is_granted('IS_AUTHENTICATED_FULLY')"
  *          },
  *          "DELETE" = {
-"               access_control" = "is_granted('IS_AUTHENTICATE_FULLY') and object.getCustomer() == user"
+"               access_control" = "is_granted('IS_AUTHENTICATE_FULLY')"
  *          }},
  *
  *     collectionOperations={ "GET",
@@ -135,5 +134,9 @@ class Order
         $this->customer = $customer;
 
         return $this;
+    }
+
+    public function getCurrentDate() : ?\DateTimeInterface{
+        return new \DateTime('now');
     }
 }
