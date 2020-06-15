@@ -13,6 +13,7 @@ use Symfony\Component\Security\Core\Security;
 final class CurrentUserExtension implements QueryCollectionExtensionInterface, QueryItemExtensionInterface{
 
     private $security;
+    private $operationName;
 
     public function __construct(Security $security)
     {
@@ -21,11 +22,13 @@ final class CurrentUserExtension implements QueryCollectionExtensionInterface, Q
 
     public function applyToItem(QueryBuilder $queryBuilder, QueryNameGeneratorInterface $queryNameGenerator, string $resourceClass, array $identifiers, string $operationName = null, array $context = [])
     {
+        $this->operationName = $operationName;
         $this->addWhere($queryBuilder,$resourceClass);
     }
 
     public function applyToCollection(QueryBuilder $queryBuilder, QueryNameGeneratorInterface $queryNameGenerator, string $resourceClass, string $operationName = null)
     {
+        $this->operationName = $operationName;
         $this->addWhere($queryBuilder,$resourceClass);
     }
 
@@ -33,7 +36,7 @@ final class CurrentUserExtension implements QueryCollectionExtensionInterface, Q
     {
         $user = $this->security->getUser();
 
-        if ($user === null)
+        if ($user === null || $this->operationName !== "GET")
             return;
 
         switch ($resourceClass){
