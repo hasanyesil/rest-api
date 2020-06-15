@@ -135,8 +135,4 @@ class Order
 
         return $this;
     }
-
-    public function getCurrentDate() : ?\DateTimeInterface{
-        return new \DateTime('now');
-    }
 }
