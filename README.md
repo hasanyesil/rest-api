@@ -12,10 +12,10 @@ Uygulamanın çalışması için gerekli veritabanının ayarlanması
 DATABASE_URL=mysql://kullanıcı_adı:parola@127.0.0.1:myql_port/database_ismi?serverVersion=5.7
 ```
 ## Routes
--/api/login 
--/api/orders
--/api/orders/{id}
--/api/customers/{id}/orders/orders.{_format}
+- \/api\/login 
+- \/api\/orders
+- \/api\/orders/\{id\}
+- \/api\/customers\/\{id\}\/orders\/orders.\{_format\}
 
 ## TASK LIST
 -[x] Servisler
